@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualization</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>ChatGPT Efficiency Evaluation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+        <h1>ChatGPT Evaluation</h1>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#research">Research Approach</a></li>
+            <li><a href="#dataset">Dataset</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section id="hero">
+    <div class="hero-content">
+        <h2>Welcome to ChatGPT Efficiency Evaluation</h2>
+        <p>A comprehensive analysis of ChatGPT's performance in History, Social Science, and Computer Security domains.</p>
+        <a href="#results" class="btn-primary">Explore Results</a>
+    </div>
+</section>
+
+<!-- Introduction Section -->
+<section id="introduction" class="content-section">
+    <h2>Introduction</h2>
+    <p>
+        This project evaluates ChatGPT's efficiency across different domains, combining web development, data analysis, 
+        and AI evaluation. The goal is to understand how ChatGPT adapts to various contexts while providing an 
+        interactive platform to display results.
+    </p>
+</section>
+
+<!-- Profile Section -->
+<section id="profile" class="content-section">
+    <h2>Profile</h2>
+    <div class="profile-card">
+        <p><strong>Name:</strong> Lovepreet Kaur, Aakarshak Jain </p>
+        <p><strong>Bio:</strong> IT student at York University, with skills in programming, data analysis, and web 
+            development. Experienced in building efficient solutions using cutting-edge technologies.</p>
+        <p><strong>Technical Background:</strong> Proficient in Python, JavaScript, SQL, and web technologies like 
+            HTML, CSS, and Node.js. Familiar with AI tools such as ChatGPT and data visualization frameworks.</p>
+    </div>
+</section>
+
+<!-- Research Approach Section -->
+<section id="research" class="content-section">
+    <h2>Research Approach</h2>
+    <div class="card">
+        <p>
+            This evaluation leverages a full-stack approach:
+        </p>
+        <ul>
+            <li><strong>Backend:</strong> Node.js for API interaction and backend processing.</li>
+            <li><strong>Database:</strong> MongoDB for efficient storage and retrieval of evaluation datasets.</li>
+            <li><strong>Frontend:</strong> HTML, CSS, and JavaScript for an interactive website to showcase findings.</li>
+            <li><strong>AI API:</strong> ChatGPT API for evaluating responses to diverse questions.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Dataset Section -->
+<section id="dataset" class="content-section">
+    <h2>Dataset Overview</h2>
+    <div class="card">
+        <p>
+            The dataset used for this evaluation includes questions across the following domains:
+        </p>
+        <ul>
+            <li><strong>History:</strong> Assessing ChatGPT’s ability to understand historical events, timelines, and figures.</li>
+            <li><strong>Social Science:</strong> Evaluating responses to questions on sociology, psychology, and human behavior.</li>
+            <li><strong>Computer Security:</strong> Testing technical accuracy and depth in cybersecurity topics.</li>
+        </ul>
+        <p>
+            The purpose of these evaluations is to gauge ChatGPT's adaptability and accuracy across academic and technical contexts.
+        </p>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section id="results" class="content-section">
+    <h2>Results</h2>
+    <div class="card">
+        <p>
+            The performance of ChatGPT across different domains is visualized below:
+        </p>
+        
+        <h1>Retrieve and Validate a Question</h1>
+  <label for="topic">Select Topic:</label>
+  <select id="topic">
+    <option value="History">History</option>
+    <option value="Social_Science">Social Science</option>
+    <option value="Computer_Security">Computer Security</option>
+  </select>
+  <br><br>
+  <button id="fetch-question">Get Random Question</button>
+  <button id="send-to-chatgpt">Send to ChatGPT</button>
+  <div>
+    <strong>Question:</strong> <span id="question-text">...</span><br>
+    <strong>Anticipated Answer:</strong> <span id="anticipated-answer-text">...</span><br>
+    <strong>ChatGPT Response:</strong> <span id="chatgpt-response-text">...</span><br>
+    <strong>Validation Result:</strong> <span id="validation-result-text">...</span><br>
+    <strong>Response Time:</strong> <span id="response-time-text">...</span><br>
+  </div>
+
+  <h2>Data Visualizations</h2>
+  <div id="visualization-container">
+    <canvas id="accuracyChart" width="400" height="200"></canvas>
+    <canvas id="responseTimeChart" width="400" height="200"></canvas>
+  </div>
+        <p>
+            These visualizations represent the accuracy and relevance of ChatGPT's responses across History, Social 
+            Science, and Computer Security.
+        </p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="content-section">
+    <h2>Contact</h2>
+    <div class="card">
+        <p>
+            Have questions or want to collaborate? Feel free to reach out!
+        </p>
+        <ul>
+            <li><strong>Email:</strong> lovrpree@my.yorku.ca </li>
+            <li><strong>Email:</strong> eliordi7@my.yorku.ca </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2024 Lovepreet Kaur. Aakarshak Jain. Built with ♥ and hosted on <a href="https://github.com/">GitHub Pages</a>.</p>
+</footer>
+
+</body>
+  
+  <script>
+    
+    let currentQuestionId = null; // To store the ID of the current question
+    let currentTopic = null; // To store the current topic
+
+    document.getElementById('fetch-question').addEventListener('click', async () => {
+      currentTopic = document.getElementById('topic').value;
+      const questionText = document.getElementById('question-text');
+      const anticipatedAnswerText = document.getElementById('anticipated-answer-text');
+      const chatGPTResponseText = document.getElementById('chatgpt-response-text');
+      const sendToChatGPTButton = document.getElementById('send-to-chatgpt');
+
+      try {
+        const response = await fetch(`http://localhost:5000/random-question/${currentTopic}`);
+        if (!response.ok) throw new Error('Failed to fetch question.');
+
+        const data = await response.json();
+        if (data.error) {
+          questionText.textContent = data.error;
+          anticipatedAnswerText.textContent = 'N/A';
+          chatGPTResponseText.textContent = 'N/A';
+          sendToChatGPTButton.disabled = true;
+        } else {
+          currentQuestionId = data._id; // Store the question ID
+          questionText.textContent = data.question || 'No question available';
+          anticipatedAnswerText.textContent = data.anticipatedAnswer || 'No anticipated answer provided';
+          chatGPTResponseText.textContent = data.ChatGPT_response || 'No ChatGPT response yet.';
+          sendToChatGPTButton.disabled = false; // Enable the button
+        }
+      } catch (error) {
+        questionText.textContent = 'Error fetching question: ' + error.message;
+        anticipatedAnswerText.textContent = 'N/A';
+        chatGPTResponseText.textContent = 'N/A';
+        sendToChatGPTButton.disabled = true;
+      }
+    });
+
+    document.getElementById('send-to-chatgpt').addEventListener('click', async () => {
+  if (!currentQuestionId || !currentTopic) {
+    alert('Please fetch a question first.');
+    return;
+  }
+
+  const chatGPTResponseText = document.getElementById('chatgpt-response-text');
+  const validationResultText = document.getElementById('validation-result-text');
+  const responseTimeText = document.getElementById('response-time-text');
+  const sendToChatGPTButton = document.getElementById('send-to-chatgpt');
+
+  sendToChatGPTButton.disabled = true;
+  sendToChatGPTButton.textContent = 'Processing...';
+
+  try {
+    const response = await fetch(`http://localhost:5000/answer-question/${currentTopic}/${currentQuestionId}`, {
+      method: 'POST',
+    });
+
+    if (!response.ok) throw new Error('Failed to send question to ChatGPT.');
+
+    const data = await response.json();
+
+    // Display ChatGPT response
+    chatGPTResponseText.textContent = data.question.ChatGPT_response || 'No response available';
+
+    // Display validation result
+    validationResultText.textContent = data.isAccurate ? 'Valid Response' : 'Invalid Response';
+
+    // Display response time
+    responseTimeText.textContent = `${data.responseTime} ms`;
+
+  } catch (error) {
+    chatGPTResponseText.textContent = 'Error: ' + error.message;
+    validationResultText.textContent = 'Validation failed.';
+    responseTimeText.textContent = 'N/A';
+  } finally {
+    sendToChatGPTButton.disabled = false;
+    sendToChatGPTButton.textContent = 'Send to ChatGPT';
+  }
+});
+async function fetchVisualizationData() {
+  try {
+    const response = await fetch('http://localhost:5000/visualization-data');
+    if (!response.ok) throw new Error('Failed to fetch visualization data.');
+
+    const data = await response.json();
+
+    const domains = Object.keys(data);
+    const accuracyRates = domains.map((domain) =>
+      parseFloat(data[domain]?.accuracyRate || '0.00')
+    );
+    const avgResponseTimes = domains.map((domain) =>
+      parseFloat(data[domain]?.avgResponseTime || '0.00')
+    );
+
+    // Accuracy Chart
+    const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
+    new Chart(accuracyCtx, {
+      type: 'bar',
+      data: {
+        labels: domains,
+        datasets: [
+          {
+            label: 'Accuracy Rate (%)',
+            data: accuracyRates,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
+    });
+
+    // Response Time Chart
+    const responseTimeCtx = document.getElementById('responseTimeChart').getContext('2d');
+    new Chart(responseTimeCtx, {
+      type: 'bar',
+      data: {
+        labels: domains,
+        datasets: [
+          {
+            label: 'Average Response Time (ms)',
+            data: avgResponseTimes,
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Error loading visualization data:', error.message);
+    alert('Error loading data for visualizations. Please check the backend.');
+  }
+}
+
+// Fetch visualization data on page load
+fetchVisualizationData();
+  </script>
+  
+</body>
+</html>
